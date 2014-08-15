@@ -78,7 +78,7 @@ int tun_alloc(char *dev, int flags) {
   return fd;
 }
 
-NAN_METHOD(Add) {
+NAN_METHOD(AddTap) {
   
   NanScope();
   
@@ -98,12 +98,35 @@ NAN_METHOD(Add) {
       exit(1);
     }
 
-  NanReturnUndefined();
+  NanReturnValue(NanNew<int>(tap_fd))
+}
+
+NAN_METHOD(AddTun) {
+  
+  NanScope();
+  
+  if (args.Length() < 1) {
+    ThrowException(Exception::TypeError(String::New("Wrong number of arguments")));
+    NanReturnUndefined();
+  }
+  
+  int tun_fd;
+ 
+  tun_fd = tun_alloc(*NanUtf8String(args[0]), IFF_TUN);  /* tun interface */
+  
+  if(ioctl(tun_fd, TUNSETPERSIST, 1) < 0){
+      perror("enabling TUNSETPERSIST");
+      exit(1);
+    }
+
+  NanReturnValue(NanNew<int>(tun_fd))
 }
 
 void init(Handle<Object> exports) {
-  exports->Set(String::NewSymbol("add"),
-      NanNew<FunctionTemplate>(Add)->GetFunction());
+    exports->Set(String::NewSymbol("addTap"),
+      NanNew<FunctionTemplate>(AddTap)->GetFunction());
+    exports->Set(String::NewSymbol("addTun"),
+      NanNew<FunctionTemplate>(AddTun)->GetFunction());
 }
 
 NODE_MODULE(tuntap, init)
