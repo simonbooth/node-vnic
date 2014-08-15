@@ -1,0 +1,11 @@
+{
+  "name": "node-vnic",
+  "version": "0.0.0",
+  "description": "Virtual network interface for node.js via tap / tun",
+  "main": "index.js",
+  "repository": "",
+  "author": "Simon Booth <simon@purplelizard.net>",
+  "dependencies": {
+    "nan": "^1.3.0"
+  }
+}
