@@ -5,10 +5,10 @@ var fs = require('fs');
 //TODO - add options
 var Interface = function(name) {
     var fd;
-    if(name.indexof("tap"==0)){
+    if(name.indexOf("tap"==0)){
         fd = tuntap.addTap(name);
     }
-    else if(name.indexof("tun"==0)){
+    else if(name.indexOf("tun"==0)){
         fd = tuntap.addTun(name);
     }
     //TODO if NN ommitted, use next available and return new name
