@@ -98,7 +98,7 @@ NAN_METHOD(AddTap) {
       exit(1);
     }
 
-  NanReturnValue(NanNew<int>(tap_fd))
+  NanReturnValue(NanNew<Number>(tap_fd));
 }
 
 NAN_METHOD(AddTun) {
@@ -119,7 +119,7 @@ NAN_METHOD(AddTun) {
       exit(1);
     }
 
-  NanReturnValue(NanNew<int>(tun_fd))
+  NanReturnValue(NanNew<Number>(tun_fd));
 }
 
 void init(Handle<Object> exports) {
