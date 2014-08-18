@@ -1,13 +1,24 @@
 var tuntap = require('./build/Release/tuntap');
 var fs = require('fs');
-
+//Simple interface takes single string parameter tapNN or tunNN, where NN is a number
+//TODO - if NN is ommitted the next available interface ID will be used
+//TODO - add options
 var Interface = function(name) {
-    var fd = tuntap.addTap(name);
+    var fd;
+    if(name.indexof("tap"==0)){
+        fd = tuntap.addTap(name);
+    }
+    else if(name.indexof("tun"==0)){
+        fd = tuntap.addTun(name);
+    }
+    //TODO if NN ommitted, use next available and return new name
     var sR = fs.createReadStream(null, {fd: fd});
-    var sW = fs.createReadStream(null, {fd: fd});
+    var sW = fs.createWriteStream(null, {fd: fd});
     return{
-    uplink:sW,
-    downlink:sR
+        name:name,
+        fileDescriptor:fd,
+        uplink:sW,
+        downlink:sR
 }};
 
 module.exports = function(name){
