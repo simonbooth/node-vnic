@@ -1,5 +1,5 @@
 {
-  "name": "node-vnic",
+  "name": "vnic",
   "version": "0.0.0",
   "description": "Virtual network interface for node.js via tap / tun",
   "main": "index.js",
