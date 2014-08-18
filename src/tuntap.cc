@@ -91,7 +91,7 @@ NAN_METHOD(AddTap) {
   //strcpy(tun_name, "tun1");
   //tunfd = tun_alloc(tun_name, IFF_TUN);  /* tun interface */
 
-  tap_fd = tun_alloc(*NanUtf8String(args[0]), IFF_TAP);  /* tap interface */
+  tap_fd = tun_alloc(*NanUtf8String(args[0]), IFF_TAP | IFF_NO_PI);  /* tap interface */
   
   if(ioctl(tap_fd, TUNSETPERSIST, 1) < 0){
       perror("enabling TUNSETPERSIST");
@@ -112,7 +112,7 @@ NAN_METHOD(AddTun) {
   
   int tun_fd;
  
-  tun_fd = tun_alloc(*NanUtf8String(args[0]), IFF_TUN);  /* tun interface */
+  tun_fd = tun_alloc(*NanUtf8String(args[0]), IFF_TUN | IFF_NO_PI);  /* tun interface */
   
   if(ioctl(tun_fd, TUNSETPERSIST, 1) < 0){
       perror("enabling TUNSETPERSIST");
