@@ -1,6 +1,6 @@
 var tuntap = require('./build/Release/tuntap');
-var net=require("net");
-var fs = require('fs');
+var stream=require("stream");
+//var fs = require('fs');
 //Simple interface takes single string parameter tapNN or tunNN, where NN is a number
 //TODO - if NN is ommitted the next available interface ID will be used
 //TODO - add options
@@ -16,7 +16,7 @@ var Interface = function(name) {
    
     //var sR = fs.createReadStream(null, {fd: fd, highWaterMark: Math.pow(2,16)});
     //var sW = fs.createWriteStream(null, {fd: fd, highWaterMark: Math.pow(2,16)});
-    var stream = new net.Socket({ fd : fd, highWaterMark: Math.pow(2,16) })
+    var stream = new stream.Duplex({ fd : fd, highWaterMark: Math.pow(2,16) });
     return{
         name:name,
         fileDescriptor:fd,
