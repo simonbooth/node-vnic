@@ -1,6 +1,5 @@
 var tuntap = require('./build/Release/tuntap');
-var FileDuplex=require("file-duplex");
-//var fs = require('fs');
+var fs = require('fs');
 //Simple interface takes single string parameter tapNN or tunNN, where NN is a number
 //TODO - if NN is ommitted the next available interface ID will be used
 //TODO - add options
