@@ -12,8 +12,10 @@ var Interface = function(name) {
         fd = tuntap.addTun(name);
     }
     //TODO if NN ommitted, use next available and return new name
-    var sR = fs.createReadStream(null, {fd: fd});
-    var sW = fs.createWriteStream(null, {fd: fd});
+   
+    var sR = fs.createReadStream(null, {fd: fd, highWaterMark: Math.pow(2,16)});
+    var sW = fs.createWriteStream(null, {fd: fd, highWaterMark: Math.pow(2,16)});
+    
     return{
         name:name,
         fileDescriptor:fd,
